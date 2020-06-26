@@ -1,0 +1,43 @@
+<h1 id="burgerHeader">Eat-Da-Burger</h1>
+
+<ol>
+    {{#each burgers}}
+    <li>{{burger}}</li>
+    {{/each}}
+</ol>
+
+<form action="/" method="POST">
+    <textarea id="inputArea" type="text" name="task"></textarea>
+
+    <button id="inputButton" type="submit">Submit</button>
+</form>
+
+<style>
+    #burgerHeader {
+        text-align: center;
+        color: orange;
+    }
+
+    li {
+        color: red;
+    }
+</style>
+
+<script type="text/javascript">
+    $("#inputButton").click(() => {
+        event.preventDefault();
+
+        console.log($("#inputArea").val());
+        const newBurger = { burger: $("#inputArea").val() };
+
+        $.ajax("/api/burgers", {
+            type: "POST",
+            data: newBurger,
+        }).then(
+            function () {
+                console.log("Success");
+                location.reload();
+            }
+        );
+    });
+</script>
