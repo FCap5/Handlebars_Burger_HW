@@ -1,12 +1,12 @@
-DROP DATABASE IF EXISTS sandbox_db;
-CREATE DATABASE sandbox_db;
+DROP DATABASE IF EXISTS burgers_db;
+CREATE DATABASE burgers_db;
 
-USE sandbox_db;
+USE burgers_db;
 
 CREATE TABLE users (
     id INTEGER AUTO_INCREMENT NOT NULL,
-    username VARCHAR(255),
-    password VARCHAR(255),
+    burger VARCHAR(255),
+    devoured BOOLEAN DEFAULT "false",
     PRIMARY KEY(id)  
 )
 
