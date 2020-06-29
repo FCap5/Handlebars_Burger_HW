@@ -1,43 +1,71 @@
 <h1 id="burgerHeader">Eat-Da-Burger</h1>
-
+{{!-- TODO  burger img --}}
 <ol>
     {{#each burgers}}
-    <li>{{burger}}</li>
+    <p>{{id}}: {{burger}} <button class="burgerBtn btn" id={{id}}>Devour!</button></p>
     {{/each}}
 </ol>
 
-<form action="/" method="POST">
+<ol>
+
+    {{#each devoureds}}
+    <p>{{id}}: {{burger}}</p>
+    {{/each}}
+</ol>
+
+<form action=" /" method="POST">
     <textarea id="inputArea" type="text" name="task"></textarea>
 
     <button id="inputButton" type="submit">Submit</button>
 </form>
 
 <style>
-    #burgerHeader {
-        text-align: center;
-        color: orange;
-    }
+    {
+            {
+             !-- //get this styled nicely --}}
 
-    li {
-        color: red;
-    }
+            #burgerHeader {
+                text-align: center;
+                color: orange;
+            }
+
+            li {
+                color: red;
+            }
 </style>
 
 <script type="text/javascript">
     $("#inputButton").click(() => {
         event.preventDefault();
 
-        console.log($("#inputArea").val());
-        const newBurger = { burger: $("#inputArea").val() };
+        if ($("inPutArea").length === 0) {
+            alert("That's a boring burger! Try puttin' something on that!");
+        } else {
+            console.log($("#inputArea").val());
+            const newBurger = { burger: $("#inputArea").val() };
 
-        $.ajax("/api/burgers", {
-            type: "POST",
-            data: newBurger,
+            $.ajax("/api/burgers", {
+                type: "POST",
+                data: newBurger,
+            }).then(
+                function () {
+                    console.log("Success");
+                    location.reload();
+                }
+            );
+        }
+    });
+    //this only works with an old function
+    $(".burgerBtn").click(function () {
+        const id = $(this).attr("id");
+
+        $.ajax("/api/burgers/" + id, {
+            type: "PUT"
         }).then(
-            function () {
-                console.log("Success");
+            () => {
+                console.log("Success!");
                 location.reload();
             }
-        );
-    });
+        )
+    })
 </script>
